@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400" fill="none">
+  <rect width="600" height="400" rx="12" fill="#fafafa"/>
+  <!-- Portrait/person placeholder -->
+  <circle cx="300" cy="150" r="64" fill="#E0E0E0"/>
+  <rect x="220" y="230" width="160" height="170" rx="60" fill="#E0E0E0"/>
+  <!-- Background accent -->
+  <rect x="0" y="320" width="600" height="80" fill="#2DA691" opacity="0.08"/>
+</svg>

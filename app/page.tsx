@@ -1,65 +1,237 @@
-import Image from "next/image";
+"use client"
+import React from "react"
+import Button from "@/components/button"
+import Image from "next/image"
+import {motion} from "motion/react"
+import {VideoReplayIcon, TextIcon, DragDropIcon, SparklesIcon, Tick02Icon, ArrowRight01Icon, PlayIcon, Image01Icon, Time04Icon, MoneyBag02Icon} from "@hugeicons/core-free-icons"
+import {HugeiconsIcon} from "@hugeicons/react"
 
-export default function Home() {
+const features = [
+  {
+    icon: DragDropIcon,
+    title: "Drag & Drop Timeline",
+    description: "Drop your media onto the timeline. Trim, rearrange and layer videos, images and audio intuitively.",
+  },
+  {
+    icon: TextIcon,
+    title: "Auto Captions",
+    description: "AI-powered captions with stylish designs. One click to make your content accessible and engaging.",
+  },
+  {
+    icon: SparklesIcon,
+    title: "Animated Badges",
+    description: "Ready-to-use animated elements for enumerations, highlights and viral video formats.",
+  },
+  {
+    icon: VideoReplayIcon,
+    title: "Runs in Your Browser",
+    description: "No downloads, no installs. Open the editor and start cutting — everything runs locally in your browser.",
+  },
+]
+
+const checkpoints = ["Done in minutes, not hours", "Export in browser", "Only €8/mo"]
+
+const showcaseMedia = [
+  {src: "/placeholder-video-1.svg", type: "video", label: "Travel Vlog"},
+  {src: "/placeholder-photo-1.svg", type: "photo", label: "Landscape"},
+  {src: "/placeholder-video-2.svg", type: "video", label: "Product Demo"},
+  {src: "/placeholder-photo-2.svg", type: "photo", label: "Portrait"},
+]
+
+export default function Page() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+    <main
+      className="min-h-screen"
+      style={{
+        background: "white",
+        backgroundSize: "10px 10px",
+        backgroundImage: "radial-gradient(circle, #ddd 1.5px, transparent 1.5px)",
+      }}>
+      <div className="max-w-7xl mx-auto px-10">
+        {/* Hero */}
+        <section className="pt-28 pb-16">
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-10">
+            {/* Left — MacBook */}
+            <motion.div className="w-full md:w-[58%] shrink-0" initial={{opacity: 0, x: -30}} animate={{opacity: 1, x: 0}} transition={{duration: 0.6, delay: 0.3}}>
+              <Image src="/macbook_ministudio.png" alt="ministudio editor on MacBook" width={1600} height={1000} className="w-full h-auto scale-130" priority />
+            </motion.div>
+
+            {/* Right — Text */}
+            <div className="w-full md:w-1/2 flex flex-col gap-5 text-center md:text-left">
+              <motion.div initial={{opacity: 0, y: 16}} animate={{opacity: 1, y: 0}} transition={{duration: 0.5}}>
+                <span className="inline-block border-2 border-black rounded-full px-3 py-0.5 text-xs shadow-small">Video Editing — simplified</span>
+              </motion.div>
+
+              <motion.h1 className="text-4xl md:text-5xl font-bold leading-tight" initial={{opacity: 0, y: 16}} animate={{opacity: 1, y: 0}} transition={{duration: 0.5, delay: 0.1}}>
+                Finished videos in <span className="text-[#2a9] font-(family-name:--font-schoolbell)">minutes</span>, not hours.
+              </motion.h1>
+
+              <motion.p className="text-sm md:text-base text-[#666]" initial={{opacity: 0, y: 16}} animate={{opacity: 1, y: 0}} transition={{duration: 0.5, delay: 0.2}}>
+                The fastest way to turn raw footage into social media ready posts. Drop your clips, pick a template, export. That simple.
+              </motion.p>
+
+              <motion.div className="flex gap-4 items-center mt-1 justify-center md:justify-start" initial={{opacity: 0, y: 16}} animate={{opacity: 1, y: 0}} transition={{duration: 0.5, delay: 0.3}}>
+                <a href="/editor">
+                  <Button className="bg-[#2a9] px-5 py-2.5 gap-2">
+                    <span className="text-sm font-medium">Start editing</span>
+                    <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
+                  </Button>
+                </a>
+                <a href="#pricing" className="text-[#888] hover:text-black transition-colors text-xs">
+                  See pricing
+                </a>
+              </motion.div>
+
+              <motion.div className="flex flex-wrap gap-x-4 gap-y-1.5 mt-1 justify-center md:justify-start" initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 0.5, delay: 0.45}}>
+                {checkpoints.map((point) => (
+                  <div key={point} className="flex items-center gap-1.5 text-xs text-[#888]">
+                    <HugeiconsIcon icon={Tick02Icon} size={14} color="#2a9" />
+                    {point}
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Stats */}
+        <section className=" py-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <motion.div className="border-2 border-black rounded-xl p-6 bg-white shadow-hard text-center" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.4}}>
+              <div className="size-10 rounded-lg bg-[#2a9] border-2 border-black shadow-small flex items-center justify-center mb-3 mx-auto">
+                <HugeiconsIcon icon={Time04Icon} size={18} color="white" />
+              </div>
+              <div className="text-3xl font-bold">3 min</div>
+              <p className="text-[#888] text-xs mt-1">Average time to finished video</p>
+            </motion.div>
+
+            <motion.div className="border-2 border-black rounded-xl p-6 bg-white shadow-hard text-center" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.4, delay: 0.1}}>
+              <div className="size-10 rounded-lg bg-[#2a9] border-2 border-black shadow-small flex items-center justify-center mb-3 mx-auto">
+                <HugeiconsIcon icon={MoneyBag02Icon} size={18} color="white" />
+              </div>
+              <div className="text-3xl font-bold">
+                €8<span className="text-sm text-[#aaa] font-normal">/mo</span>
+              </div>
+              <p className="text-[#888] text-xs mt-1">Cheaper than any alternative</p>
+            </motion.div>
+
+            <motion.div className="border-2 border-black rounded-xl p-6 bg-white shadow-hard text-center" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.4, delay: 0.2}}>
+              <div className="size-10 rounded-lg bg-[#2a9] border-2 border-black shadow-small flex items-center justify-center mb-3 mx-auto">
+                <HugeiconsIcon icon={SparklesIcon} size={18} color="white" />
+              </div>
+              <div className="text-3xl font-bold">0</div>
+              <p className="text-[#888] text-xs mt-1">Learning curve — just drag & drop</p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Media Showcase */}
+        <section className=" py-16">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold">
+              Your media. <span className="text-[#aaa]">Ready in seconds.</span>
+            </h2>
+            <p className="text-[#666] mt-3 text-sm max-w-md mx-auto">Drop in your videos and photos — ministudio handles the rest.</p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {showcaseMedia.map((item, i) => (
+              <motion.div
+                key={item.label}
+                className="border-2 border-black rounded-xl overflow-hidden shadow-hard bg-white group cursor-pointer"
+                initial={{opacity: 0, y: 16}}
+                whileInView={{opacity: 1, y: 0}}
+                viewport={{once: true}}
+                transition={{duration: 0.4, delay: i * 0.08}}
+                whileHover={{y: -3}}>
+                <div className="relative">
+                  <Image src={item.src} alt={item.label} width={600} height={400} className="w-full h-auto" />
+                  {item.type === "video" && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="size-8 rounded-full bg-black/40 flex items-center justify-center backdrop-blur-sm">
+                        <HugeiconsIcon icon={PlayIcon} size={14} color="white" />
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="px-2.5 py-1.5 flex items-center gap-1.5">
+                  <HugeiconsIcon icon={item.type === "video" ? VideoReplayIcon : Image01Icon} size={12} color="#aaa" />
+                  <span className="text-[11px] text-[#888]">{item.label}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Features */}
+        <section id="features" className=" py-16">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold">
+              Everything you need. <span className="text-[#aaa]">Nothing you don&apos;t.</span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {features.map((feature, i) => (
+              <motion.div key={feature.title} className="border-2 border-black rounded-xl p-6 bg-white shadow-hard" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.4, delay: i * 0.1}}>
+                <div className="size-10 rounded-lg bg-[#2a9] border-2 border-black shadow-small flex items-center justify-center mb-4">
+                  <HugeiconsIcon icon={feature.icon} size={18} color="white" />
+                </div>
+                <h3 className="text-base font-bold mb-1.5">{feature.title}</h3>
+                <p className="text-[#666] text-sm leading-relaxed">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Pricing */}
+        <section id="pricing" className=" py-16">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold">
+              Simple pricing. <span className="text-[#aaa]">No surprises.</span>
+            </h2>
+          </div>
+
+          <motion.div className="border-2 border-[#2a9] rounded-xl p-8 bg-white shadow-hard max-w-md mx-auto relative" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.4}}>
+            <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#2a9] text-white text-xs font-medium px-3 py-0.5 rounded-full border-2 border-black shadow-small">All-inclusive</span>
+            <div className="text-center mb-6">
+              <h3 className="text-base font-bold mb-1">Pro</h3>
+              <div className="text-5xl font-bold">
+                €8<span className="text-lg text-[#aaa] font-normal">/mo</span>
+              </div>
+              <p className="text-xs text-[#888] mt-1">Cancel anytime</p>
+            </div>
+            <div className="space-y-2.5 text-sm text-[#666]">
+              {["Unlimited projects", "Drag & drop editing", "Auto captions (AI)", "Animated badges & templates", "HD export — no watermark", "Priority rendering"].map((f) => (
+                <div key={f} className="flex items-center gap-2">
+                  <HugeiconsIcon icon={Tick02Icon} size={14} color="#2a9" />
+                  {f}
+                </div>
+              ))}
+            </div>
+            <a href="/editor" className="block mt-6">
+              <Button className="bg-[#2a9] px-5 py-2.5 w-full gap-2">
+                <span className="text-sm font-medium">Get started</span>
+                <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
+              </Button>
+            </a>
+          </motion.div>
+        </section>
+
+        {/* CTA */}
+        <section className=" py-16 pb-28">
+          <motion.div className="border-2 border-black rounded-xl bg-[#2a9] shadow-hard p-10 md:p-12 text-center" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.5}}>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">Ready to start?</h2>
+            <p className="text-white/70 text-sm mb-6 max-w-md mx-auto">Drop your clips, pick a style, export. Your first video is done before your coffee gets cold.</p>
+            <a href="/editor">
+              <Button className="bg-white px-6 py-2.5 mx-auto gap-2">
+                <span className="text-sm font-medium">Open editor</span>
+                <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
+              </Button>
+            </a>
+          </motion.div>
+        </section>
+      </div>
+    </main>
+  )
 }

@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Main idea
+Simplecut is a easy to use browser based video editing program which solves this issues:
 
-## Getting Started
+- easy to use for beginners
+- cheap
+- fast editing - easy templates -> viral videos
 
-First, run the development server:
+ => it is made for people who want to turn raw footage simple and quick in social media ready posts
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# Features:
+- simple mediapanel where you can upload your media
+- timeline where you can drag and drop the media from the mediapanel
+- canvas where you can zoom in and out to view the video
+- automatic captions with cool styles
+- ready to use animated badges (maybe use remotion for this) to visualize for example enumarations
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Timeline:
+Anything - videos, images, text can be dropped there. There are timelines for videos / images and timelines for audio
+Things on these timelines can be stretched with handles on both sides of the images / videos and shortend, maybe safe these informations
+on each item on the timeline, for example startDuration and endDuration, so if the item (Video / image) gets dragged in the middle, both startDuration
+and endDuration will shift and if only for example the right handle will get moved, only the endDuration will change. Also add responsive animations (maybe scale)
+for them. Timelines can be deleted as well as created if the user drags media on empty space and drops it there - a new timeline will get created (also show a preview)
+when the user is hovering with the item over empty space to preview where / if the new timeline will get created.
+There is also a handle on the timeline which will the user can drag and which will automatically sync with the canvas at the point where the video played right now
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# UI style:
+very simple
+2DA691 primary brand color
+simple animations
+dark background
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Tech Stack:
+chatgpt whisper for auto captions
+react, nextjs
+tailwindcss
+motion for interactions
+remotion for rendering / cool features
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# current status:
+dont save anything in the browser - anything must be saved / rendered on client side
