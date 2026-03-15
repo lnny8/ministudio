@@ -1,27 +1,45 @@
+"use client"
 import React from "react"
-import Image from "next/image"
 import Button from "./button"
+import {HugeiconsIcon} from "@hugeicons/react"
+import {PlayIcon, Logout03Icon} from "@hugeicons/core-free-icons"
+import Link from "next/link"
+import {useSession, signOut} from "@/lib/auth-client"
 
 export default function Menu() {
-  const links = [
-    {name: "Home", href: "/"},
-    {name: "Editor", href: "/editor"},
-  ]
-  const currentPath = typeof window !== "undefined" ? window.location.pathname : "/"
+  const {data: session} = useSession()
+  const initials = session?.user?.name
+    ? session.user.name
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase()
+        .slice(0, 2)
+    : "?"
 
   return (
-    <nav className="fixed w-full h-16 2xl:max-w-500 px-10 right-1/2 translate-x-1/2 flex items-center justify-between">
-      <Image src="/ministudio.png" alt="Logo" width={200} height={40} className="" />
-      <div className="flex gap-10 items-center justify-center h-full">
-        {links.map((link) => (
-          <a key={link.name} href={link.href} className={currentPath === link.href ? "text-black" : "text-[#aaa]"}>
-            {link.name}
-          </a>
-        ))}
+    <nav className="fixed w-full h-16 2xl:max-w-500 px-10 right-1/2 translate-x-1/2 flex items-center justify-between z-50">
+      <div className="flex items-center justify-center">
+        <Button className="bg-[#2a9] size-10">
+          <HugeiconsIcon color="white" strokeWidth={2} icon={PlayIcon} />
+        </Button>
+        <Link href="/" className="ml-2 text-3xl translate-y-1">
+          MiniStudio
+        </Link>
       </div>
-      <div className="flex gap-5">
-        <Button className="bg-[#2a9] px-4"><span className="text-sm">Export</span></Button>
-        <Button className="size-12 bg-[#ddd]"><span className="text-sm">LM</span></Button>
+      <div className="flex gap-3 items-center">
+        <Button className="bg-[#2a9] px-4">
+          <span className="text-sm">Export</span>
+        </Button>
+        <Button className="size-12 bg-[#ddd]">
+          <span className="text-sm">{initials}</span>
+        </Button>
+        <button
+          onClick={() => signOut({fetchOptions: {onSuccess: () => { window.location.href = "/" }}})}
+          className="text-[#aaa] hover:text-black transition-colors cursor-pointer p-2"
+          title="Sign out">
+          <HugeiconsIcon icon={Logout03Icon} size={18} />
+        </button>
       </div>
     </nav>
   )

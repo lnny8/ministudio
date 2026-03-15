@@ -1,15 +1,10 @@
 import {betterAuth} from "better-auth"
 import {prismaAdapter} from "better-auth/adapters/prisma"
-import {PrismaClient} from "@prisma/client"
-import {stripe} from "@better-auth/stripe"
 import {magicLink} from "better-auth/plugins"
-import Stripe from "stripe"
+import {Resend} from "resend"
+import {prisma} from "./db"
 
-const prisma = new PrismaClient()
-
-const stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY || "sk_test_placeholder", {
-  apiVersion: "2025-04-30.basil",
-})
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -21,30 +16,24 @@ export const auth = betterAuth({
   },
   emailVerification: {
     sendVerificationEmail: async ({user, url}) => {
-      // TODO: Replace with Resend when API key is set
-      console.log(`[Auth] Verification email for ${user.email}: ${url}`)
+      await resend.emails.send({
+        from: "MiniStudio <onboarding@resend.dev>",
+        to: user.email,
+        subject: "Verify your email address",
+        html: `<p>Hi ${user.name},</p><p>Click <a href="${url}">here</a> to verify your email address.</p>`,
+      })
     },
     sendOnSignUp: true,
   },
   plugins: [
     magicLink({
       sendMagicLink: async ({email, url}) => {
-        // TODO: Replace with Resend when API key is set
-        console.log(`[Auth] Magic link for ${email}: ${url}`)
-      },
-    }),
-    stripe({
-      stripeClient,
-      stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET!,
-      createCustomerOnSignUp: true,
-      subscription: {
-        enabled: true,
-        plans: [
-          {
-            name: "pro",
-            priceId: "price_TODO", // Replace with your Stripe price ID
-          },
-        ],
+        await resend.emails.send({
+          from: "MiniStudio <onboarding@resend.dev>",
+          to: email,
+          subject: "Your magic link",
+          html: `<p>Click <a href="${url}">here</a> to sign in to MiniStudio.</p>`,
+        })
       },
     }),
   ],

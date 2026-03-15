@@ -2,6 +2,7 @@
 import React from "react"
 import Button from "@/components/button"
 import Image from "next/image"
+import Link from "next/link"
 import {motion} from "motion/react"
 import {VideoReplayIcon, TextIcon, DragDropIcon, SparklesIcon, Tick02Icon, ArrowRight01Icon, PlayIcon, Image01Icon, Time04Icon, MoneyBag02Icon} from "@hugeicons/core-free-icons"
 import {HugeiconsIcon} from "@hugeicons/react"
@@ -38,6 +39,13 @@ const showcaseMedia = [
   {src: "/placeholder-photo-2.svg", type: "photo", label: "Portrait"},
 ]
 
+function scrollToPricing() {
+  const pricingSection = document.getElementById("pricing")
+  if (pricingSection) {
+    pricingSection.scrollIntoView({behavior: "smooth"})
+  }
+}
+
 export default function Page() {
   return (
     <main
@@ -48,12 +56,37 @@ export default function Page() {
         backgroundImage: "radial-gradient(circle, #ddd 1.5px, transparent 1.5px)",
       }}>
       <div className="max-w-7xl mx-auto px-10">
+        {/* Navbar */}
+        <nav className="fixed top-0 left-0 w-full h-16 z-50 px-10">
+          <div className="max-w-7xl mx-auto h-full flex items-center justify-between">
+            <div className="flex items-center">
+              <Button className="bg-[#2a9] size-10">
+                <HugeiconsIcon color="white" strokeWidth={2} icon={PlayIcon} />
+              </Button>
+              <Link href="/" className="ml-2 text-3xl translate-y-1">
+                MiniStudio
+              </Link>
+            </div>
+            <div className="flex gap-3 items-center">
+              <Link href="/sign-in" className="text-sm text-[#888] hover:text-black transition-colors px-3 py-1.5">
+                Sign in
+              </Link>
+              <Link href="/sign-up">
+                <Button className="bg-[#2a9] px-4 py-1.5 gap-2">
+                  <span className="text-sm font-medium">Get started</span>
+                  <HugeiconsIcon icon={ArrowRight01Icon} size={14} />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </nav>
+
         {/* Hero */}
         <section className="pt-28 pb-16">
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-10">
             {/* Left — MacBook */}
             <motion.div className="w-full md:w-[58%] shrink-0" initial={{opacity: 0, x: -30}} animate={{opacity: 1, x: 0}} transition={{duration: 0.6, delay: 0.3}}>
-              <Image src="/macbook_ministudio.png" alt="ministudio editor on MacBook" width={1600} height={1000} className="w-full h-auto scale-130" priority />
+              <Image src="/macbook_ministudio.png" alt="ministudio editor on MacBook" width={1600} height={1000} className="w-full h-auto scale-130 -z-1" priority />
             </motion.div>
 
             {/* Right — Text */}
@@ -71,13 +104,19 @@ export default function Page() {
               </motion.p>
 
               <motion.div className="flex gap-4 items-center mt-1 justify-center md:justify-start" initial={{opacity: 0, y: 16}} animate={{opacity: 1, y: 0}} transition={{duration: 0.5, delay: 0.3}}>
-                <a href="/editor">
+                <Link href="/editor">
                   <Button className="bg-[#2a9] px-5 py-2.5 gap-2">
                     <span className="text-sm font-medium">Start editing</span>
                     <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
                   </Button>
-                </a>
-                <a href="#pricing" className="text-[#888] hover:text-black transition-colors text-xs">
+                </Link>
+                <a
+                  href="#pricing"
+                  className="text-[#888] hover:text-black transition-colors text-xs"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    scrollToPricing()
+                  }}>
                   See pricing
                 </a>
               </motion.div>
@@ -97,7 +136,12 @@ export default function Page() {
         {/* Stats */}
         <section className=" py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <motion.div className="border-2 border-black rounded-xl p-6 bg-white shadow-hard text-center" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.4}}>
+            <motion.div
+              className="border-2 border-black rounded-xl p-6 bg-white shadow-hard text-center cursor-pointer hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-small active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
+              initial={{opacity: 0, y: 16}}
+              whileInView={{opacity: 1, y: 0}}
+              viewport={{once: true}}
+              transition={{duration: 0.4}}>
               <div className="size-10 rounded-lg bg-[#2a9] border-2 border-black shadow-small flex items-center justify-center mb-3 mx-auto">
                 <HugeiconsIcon icon={Time04Icon} size={18} color="white" />
               </div>
@@ -105,7 +149,7 @@ export default function Page() {
               <p className="text-[#888] text-xs mt-1">Average time to finished video</p>
             </motion.div>
 
-            <motion.div className="border-2 border-black rounded-xl p-6 bg-white shadow-hard text-center" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.4, delay: 0.1}}>
+            <motion.div className="border-2 border-black rounded-xl p-6 bg-white shadow-hard text-center cursor-pointer hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-small active:translate-x-1 active:translate-y-1 active:shadow-none transition-all" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.4, delay: 0.1}}>
               <div className="size-10 rounded-lg bg-[#2a9] border-2 border-black shadow-small flex items-center justify-center mb-3 mx-auto">
                 <HugeiconsIcon icon={MoneyBag02Icon} size={18} color="white" />
               </div>
@@ -115,7 +159,7 @@ export default function Page() {
               <p className="text-[#888] text-xs mt-1">Cheaper than any alternative</p>
             </motion.div>
 
-            <motion.div className="border-2 border-black rounded-xl p-6 bg-white shadow-hard text-center" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.4, delay: 0.2}}>
+            <motion.div className="border-2 border-black rounded-xl p-6 bg-white shadow-hard text-center cursor-pointer hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-small active:translate-x-1 active:translate-y-1 active:shadow-none transition-all" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.4, delay: 0.2}}>
               <div className="size-10 rounded-lg bg-[#2a9] border-2 border-black shadow-small flex items-center justify-center mb-3 mx-auto">
                 <HugeiconsIcon icon={SparklesIcon} size={18} color="white" />
               </div>
@@ -129,7 +173,8 @@ export default function Page() {
         <section className=" py-16">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold">
-              Your media. <span className="text-[#aaa]">Ready in seconds.</span>
+              Your media. <br />
+              <span className="text-[#aaa]">Ready in seconds.</span>
             </h2>
             <p className="text-[#666] mt-3 text-sm max-w-md mx-auto">Drop in your videos and photos — ministudio handles the rest.</p>
           </div>
@@ -138,12 +183,11 @@ export default function Page() {
             {showcaseMedia.map((item, i) => (
               <motion.div
                 key={item.label}
-                className="border-2 border-black rounded-xl overflow-hidden shadow-hard bg-white group cursor-pointer"
+                className="border-2 border-black rounded-xl overflow-hidden shadow-hard bg-white group cursor-pointer hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-small active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
                 initial={{opacity: 0, y: 16}}
                 whileInView={{opacity: 1, y: 0}}
                 viewport={{once: true}}
-                transition={{duration: 0.4, delay: i * 0.08}}
-                whileHover={{y: -3}}>
+                transition={{duration: 0.4, delay: i * 0.08}}>
                 <div className="relative">
                   <Image src={item.src} alt={item.label} width={600} height={400} className="w-full h-auto" />
                   {item.type === "video" && (
@@ -167,13 +211,14 @@ export default function Page() {
         <section id="features" className=" py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold">
-              Everything you need. <span className="text-[#aaa]">Nothing you don&apos;t.</span>
+              <span className="">Everything</span> you need. <br />
+              <span className="text-[#aaa]">Nothing you don&apos;t.</span>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {features.map((feature, i) => (
-              <motion.div key={feature.title} className="border-2 border-black rounded-xl p-6 bg-white shadow-hard" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.4, delay: i * 0.1}}>
+              <motion.div key={feature.title} className="border-2 border-black rounded-xl p-6 bg-white shadow-hard cursor-pointer hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-small active:translate-x-1 active:translate-y-1 active:shadow-none transition-all" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.4, delay: i * 0.1}}>
                 <div className="size-10 rounded-lg bg-[#2a9] border-2 border-black shadow-small flex items-center justify-center mb-4">
                   <HugeiconsIcon icon={feature.icon} size={18} color="white" />
                 </div>
@@ -188,49 +233,38 @@ export default function Page() {
         <section id="pricing" className=" py-16">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold">
-              Simple pricing. <span className="text-[#aaa]">No surprises.</span>
+              Simple pricing. <br />
+              <span className="text-[#aaa]">No surprises.</span>
             </h2>
           </div>
 
-          <motion.div className="border-2 border-[#2a9] rounded-xl p-8 bg-white shadow-hard max-w-md mx-auto relative" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.4}}>
+          <motion.div className="border-2 border-[#2a9] rounded-xl p-8 bg-white shadow-hard max-w-md mx-auto relative cursor-pointer hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-small active:translate-x-1 active:translate-y-1 active:shadow-none transition-all" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.4}}>
             <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#2a9] text-white text-xs font-medium px-3 py-0.5 rounded-full border-2 border-black shadow-small">All-inclusive</span>
             <div className="text-center mb-6">
-              <h3 className="text-base font-bold mb-1">Pro</h3>
+              <h3 className="text-base font-bold mb-1">MiniStudio</h3>
               <div className="text-5xl font-bold">
                 €8<span className="text-lg text-[#aaa] font-normal">/mo</span>
               </div>
               <p className="text-xs text-[#888] mt-1">Cancel anytime</p>
             </div>
             <div className="space-y-2.5 text-sm text-[#666]">
-              {["Unlimited projects", "Drag & drop editing", "Auto captions (AI)", "Animated badges & templates", "HD export — no watermark", "Priority rendering"].map((f) => (
+              {["Simple Drag & drop editing", "Auto captions (AI)", "Animated badges & templates", "Edit Videos everywhere", "All on your device"].map((f) => (
                 <div key={f} className="flex items-center gap-2">
                   <HugeiconsIcon icon={Tick02Icon} size={14} color="#2a9" />
                   {f}
                 </div>
               ))}
             </div>
-            <a href="/editor" className="block mt-6">
+            <Link href="/sign-up" className="block mt-6">
               <Button className="bg-[#2a9] px-5 py-2.5 w-full gap-2">
                 <span className="text-sm font-medium">Get started</span>
                 <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
               </Button>
-            </a>
+            </Link>
           </motion.div>
         </section>
 
-        {/* CTA */}
-        <section className=" py-16 pb-28">
-          <motion.div className="border-2 border-black rounded-xl bg-[#2a9] shadow-hard p-10 md:p-12 text-center" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.5}}>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">Ready to start?</h2>
-            <p className="text-white/70 text-sm mb-6 max-w-md mx-auto">Drop your clips, pick a style, export. Your first video is done before your coffee gets cold.</p>
-            <a href="/editor">
-              <Button className="bg-white px-6 py-2.5 mx-auto gap-2">
-                <span className="text-sm font-medium">Open editor</span>
-                <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
-              </Button>
-            </a>
-          </motion.div>
-        </section>
+        <footer className="text-center py-10 text-[#888] text-xs">&copy; {new Date().getFullYear()} MiniStudio. All rights reserved.</footer>
       </div>
     </main>
   )
