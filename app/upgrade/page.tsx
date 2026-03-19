@@ -1,22 +1,9 @@
 "use client"
-import {useState} from "react"
 import Button from "@/components/button"
 import {ArrowRight01Icon} from "@hugeicons/core-free-icons"
 import {HugeiconsIcon} from "@hugeicons/react"
 
 export default function Upgrade() {
-  const [loading, setLoading] = useState(false)
-
-  const handleCheckout = async () => {
-    setLoading(true)
-    const res = await fetch("/api/checkout", {method: "POST"})
-    const data = await res.json()
-    if (data.url) {
-      window.location.href = data.url
-    }
-    setLoading(false)
-  }
-
   return (
     <main
       className="min-h-screen flex items-center justify-center"
@@ -45,8 +32,8 @@ export default function Upgrade() {
             </li>
           </ul>
 
-          <Button className="bg-[#2a9] w-full py-2.5 gap-2" buttonProps={{onClick: handleCheckout, disabled: loading}}>
-            <span className="text-sm font-medium">{loading ? "..." : "Subscribe now"}</span>
+          <Button className="bg-[#2a9] w-full py-2.5 gap-2">
+            <span className="text-sm font-medium">Subscribe now</span>
             <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
           </Button>
 
