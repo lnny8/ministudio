@@ -1,10 +1,14 @@
 "use client"
-import React from "react"
+import React, {useState} from "react"
 import Button from "@/components/button"
+import DemoBadge from "@/components/demo-badge"
+import DemoCallout from "@/components/demo-callout"
 import {ArrowRight01Icon} from "@hugeicons/core-free-icons"
 import {HugeiconsIcon} from "@hugeicons/react"
 
 export default function SignUp() {
+  const [showDemoNotice, setShowDemoNotice] = useState(false)
+
   return (
     <main
       className="min-h-screen flex items-center justify-center"
@@ -15,10 +19,17 @@ export default function SignUp() {
       }}>
       <div className="w-full max-w-sm">
         <div className="border-2 border-black rounded-xl bg-white shadow-hard p-8">
+          <DemoBadge label="Auth demo" className="mb-4" />
           <h1 className="text-2xl font-bold mb-1">Create account</h1>
-          <p className="text-sm text-[#888] mb-6">Start editing videos today</p>
+          <p className="text-sm text-[#888]">Preview account creation for the demo editor</p>
+          <p className="text-xs text-[#666] mt-2 mb-6">No real profile will be created in this prototype.</p>
 
-          <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-3">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              setShowDemoNotice(true)
+            }}
+            className="flex flex-col gap-3">
             <input
               type="text"
               placeholder="Name"
@@ -40,6 +51,16 @@ export default function SignUp() {
               <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
             </Button>
           </form>
+
+          {showDemoNotice && (
+            <DemoCallout
+              className="mt-4"
+              title="This sign-up is part of the demo."
+              description="No account is stored from this form. Use the button below to continue into the editor preview instead of getting stuck on fake onboarding."
+              ctaHref="/editor"
+              ctaLabel="Continue to demo editor"
+            />
+          )}
 
           <p className="text-xs text-[#888] mt-5 text-center">
             Already have an account?{" "}

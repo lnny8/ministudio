@@ -1,11 +1,15 @@
 "use client"
 import React, {useState} from "react"
 import Button from "@/components/button"
+import DemoBadge from "@/components/demo-badge"
+import DemoCallout from "@/components/demo-callout"
 import {ArrowRight01Icon, Mail01Icon} from "@hugeicons/core-free-icons"
 import {HugeiconsIcon} from "@hugeicons/react"
 
 export default function SignIn() {
   const [mode, setMode] = useState<"password" | "magic">("password")
+  const [showDemoNotice, setShowDemoNotice] = useState(false)
+  const actionLabel = mode === "password" ? "Sign in" : "Send magic link"
 
   return (
     <main
@@ -17,24 +21,37 @@ export default function SignIn() {
       }}>
       <div className="w-full max-w-sm">
         <div className="border-2 border-black rounded-xl bg-white shadow-hard p-8">
+          <DemoBadge label="Auth demo" className="mb-4" />
           <h1 className="text-2xl font-bold mb-1">Welcome back</h1>
-          <p className="text-sm text-[#888] mb-6">Sign in to your account</p>
+          <p className="text-sm text-[#888]">Preview the sign-in flow for the demo editor</p>
+          <p className="text-xs text-[#666] mt-2 mb-6">No real account is required. We will tell people that clearly after they continue.</p>
 
           {/* Mode toggle */}
           <div className="flex gap-2 mb-6">
             <button
-              onClick={() => setMode("password")}
+              onClick={() => {
+                setMode("password")
+                setShowDemoNotice(false)
+              }}
               className={`text-xs px-3 py-1 rounded-full border-2 border-black transition-all cursor-pointer ${mode === "password" ? "bg-black text-white" : "bg-white text-black"}`}>
               Password
             </button>
             <button
-              onClick={() => setMode("magic")}
+              onClick={() => {
+                setMode("magic")
+                setShowDemoNotice(false)
+              }}
               className={`text-xs px-3 py-1 rounded-full border-2 border-black transition-all cursor-pointer ${mode === "magic" ? "bg-black text-white" : "bg-white text-black"}`}>
               Magic link
             </button>
           </div>
 
-          <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-3">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              setShowDemoNotice(true)
+            }}
+            className="flex flex-col gap-3">
             <input
               type="email"
               placeholder="Email"
@@ -49,10 +66,20 @@ export default function SignIn() {
             )}
 
             <Button className="bg-[#2a9] w-full py-2.5 gap-2 mt-1">
-              <span className="text-sm font-medium">{mode === "password" ? "Sign in" : "Send magic link"}</span>
+              <span className="text-sm font-medium">{actionLabel}</span>
               <HugeiconsIcon icon={mode === "password" ? ArrowRight01Icon : Mail01Icon} size={16} />
             </Button>
           </form>
+
+          {showDemoNotice && (
+            <DemoCallout
+              className="mt-4"
+              title={mode === "password" ? "This sign-in is part of the demo." : "Magic link is shown as a demo step."}
+              description={mode === "password" ? "No account is created or checked here. Use the button below to jump into the editor preview." : "No email will be sent from this prototype. Use the button below to continue with the demo editor."}
+              ctaHref="/editor"
+              ctaLabel="Open demo editor"
+            />
+          )}
 
           <p className="text-xs text-[#888] mt-5 text-center">
             Don&apos;t have an account?{" "}

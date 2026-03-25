@@ -1,6 +1,7 @@
 "use client"
 import React from "react"
 import Button from "@/components/button"
+import DemoBadge from "@/components/demo-badge"
 import Image from "next/image"
 import Link from "next/link"
 import {motion} from "motion/react"
@@ -26,17 +27,17 @@ const features = [
   {
     icon: VideoReplayIcon,
     title: "Runs in Your Browser",
-    description: "No downloads, no installs. Open the editor and start cutting — everything runs locally in your browser.",
+    description: "No downloads, no installs. Open the editor and start cutting - everything runs locally in your browser.",
   },
 ]
 
 const checkpoints = ["Done in minutes, not hours", "Export in browser", "Only €8/mo"]
 
 const showcaseMedia = [
-  {src: "/placeholder-video-1.svg", type: "video", label: "Travel Vlog"},
-  {src: "/placeholder-photo-1.svg", type: "photo", label: "Landscape"},
-  {src: "/placeholder-video-2.svg", type: "video", label: "Product Demo"},
-  {src: "/placeholder-photo-2.svg", type: "photo", label: "Portrait"},
+  {src: "/demo-of-mediasection.png", label: "Media library", detail: "Import clips, images and audio in one place"},
+  {src: "/demo-of-timeline.png", label: "Timeline editing", detail: "Trim, reorder and stack scenes in seconds"},
+  {src: "/demo-of-effects.png", label: "Effects panel", detail: "Add captions, badges and styling from the demo"},
+  {src: "/demo-of-soundeffects.png", label: "Sound effects", detail: "Drop in SFX and polish the final cut fast"},
 ]
 
 function scrollToPricing() {
@@ -68,6 +69,7 @@ export default function Page() {
               </Link>
             </div>
             <div className="flex gap-3 items-center">
+              <DemoBadge label="Interactive demo" className="hidden md:inline-flex" />
               <Link href="/sign-in" className="text-sm text-[#888] hover:text-black transition-colors px-3 py-1.5">
                 Sign in
               </Link>
@@ -84,15 +86,18 @@ export default function Page() {
         {/* Hero */}
         <section className="pt-28 pb-16">
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-10">
-            {/* Left — MacBook */}
+            {/* Left - MacBook */}
             <motion.div className="w-full md:w-[58%] shrink-0" initial={{opacity: 0, x: -30}} animate={{opacity: 1, x: 0}} transition={{duration: 0.6, delay: 0.3}}>
               <Image src="/macbook_ministudio.png" alt="ministudio editor on MacBook" width={1600} height={1000} className="w-full h-auto scale-130 -z-1" priority />
             </motion.div>
 
-            {/* Right — Text */}
+            {/* Right - Text */}
             <div className="w-full md:w-1/2 flex flex-col gap-5 text-center md:text-left">
               <motion.div initial={{opacity: 0, y: 16}} animate={{opacity: 1, y: 0}} transition={{duration: 0.5}}>
-                <span className="inline-block border-2 border-black rounded-full px-3 py-0.5 text-xs shadow-small">Video Editing — simplified</span>
+                <div className="inline-flex flex-col items-center gap-3 md:items-start">
+                  <DemoBadge label="Interactive demo" />
+                  <span className="inline-block border-2 border-black rounded-full px-3 py-0.5 text-xs shadow-small">Video Editing - simplified</span>
+                </div>
               </motion.div>
 
               <motion.h1 className="text-4xl md:text-5xl font-bold leading-tight" initial={{opacity: 0, y: 16}} animate={{opacity: 1, y: 0}} transition={{duration: 0.5, delay: 0.1}}>
@@ -101,6 +106,10 @@ export default function Page() {
 
               <motion.p className="text-sm md:text-base text-[#666]" initial={{opacity: 0, y: 16}} animate={{opacity: 1, y: 0}} transition={{duration: 0.5, delay: 0.2}}>
                 The fastest way to turn raw footage into social media ready posts. Drop your clips, pick a template, export. That simple.
+              </motion.p>
+
+              <motion.p className="text-xs text-[#888]" initial={{opacity: 0, y: 16}} animate={{opacity: 1, y: 0}} transition={{duration: 0.5, delay: 0.25}}>
+                Sign in, checkout and export are preview steps in this demo, so nobody mistakes the prototype for a broken app.
               </motion.p>
 
               <motion.div className="flex gap-4 items-center mt-1 justify-center md:justify-start" initial={{opacity: 0, y: 16}} animate={{opacity: 1, y: 0}} transition={{duration: 0.5, delay: 0.3}}>
@@ -164,7 +173,7 @@ export default function Page() {
                 <HugeiconsIcon icon={SparklesIcon} size={18} color="white" />
               </div>
               <div className="text-3xl font-bold">0</div>
-              <p className="text-[#888] text-xs mt-1">Learning curve — just drag & drop</p>
+              <p className="text-[#888] text-xs mt-1">Learning curve - just drag & drop</p>
             </motion.div>
           </div>
         </section>
@@ -173,10 +182,10 @@ export default function Page() {
         <section className=" py-16">
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold">
-              Your media. <br />
-              <span className="text-[#aaa]">Ready in seconds.</span>
+              Inside the demo. <br />
+              <span className="text-[#aaa]">Real editor screens.</span>
             </h2>
-            <p className="text-[#666] mt-3 text-sm max-w-md mx-auto">Drop in your videos and photos — ministudio handles the rest.</p>
+            <p className="text-[#666] mt-3 text-sm max-w-xl mx-auto">Instead of stock placeholders, these cards now show real MiniStudio demo screens so visitors immediately understand what the product actually looks like.</p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -188,19 +197,15 @@ export default function Page() {
                 whileInView={{opacity: 1, y: 0}}
                 viewport={{once: true}}
                 transition={{duration: 0.4, delay: i * 0.08}}>
-                <div className="relative">
-                  <Image src={item.src} alt={item.label} width={600} height={400} className="w-full h-auto" />
-                  {item.type === "video" && (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="size-8 rounded-full bg-black/40 flex items-center justify-center backdrop-blur-sm">
-                        <HugeiconsIcon icon={PlayIcon} size={14} color="white" />
-                      </div>
-                    </div>
-                  )}
+                <div className="relative bg-[#f3f3f3]">
+                  <Image src={item.src} alt={item.label} width={900} height={700} className="h-44 w-full object-cover object-top md:h-52" />
                 </div>
-                <div className="px-2.5 py-1.5 flex items-center gap-1.5">
-                  <HugeiconsIcon icon={item.type === "video" ? VideoReplayIcon : Image01Icon} size={12} color="#aaa" />
-                  <span className="text-[11px] text-[#888]">{item.label}</span>
+                <div className="px-3 py-2.5">
+                  <div className="flex items-center gap-1.5">
+                    <HugeiconsIcon icon={Image01Icon} size={12} color="#aaa" />
+                    <span className="text-[11px] text-[#888]">{item.label}</span>
+                  </div>
+                  <p className="mt-1 text-[11px] leading-relaxed text-[#666]">{item.detail}</p>
                 </div>
               </motion.div>
             ))}
@@ -211,7 +216,7 @@ export default function Page() {
         <section id="features" className=" py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold">
-              <span className="">Everything</span> you need. <br />
+              <span>Everything</span> you need. <br />
               <span className="text-[#aaa]">Nothing you don&apos;t.</span>
             </h2>
           </div>
@@ -248,10 +253,10 @@ export default function Page() {
               <p className="text-xs text-[#888] mt-1">Cancel anytime</p>
             </div>
             <div className="space-y-2.5 text-sm text-[#666]">
-              {["Simple Drag & drop editing", "Auto captions (AI)", "Animated badges & templates", "Edit Videos everywhere", "All on your device"].map((f) => (
-                <div key={f} className="flex items-center gap-2">
+              {["Simple Drag & drop editing", "Auto captions (AI)", "Animated badges & templates", "Edit videos everywhere", "All on your device"].map((feature) => (
+                <div key={feature} className="flex items-center gap-2">
                   <HugeiconsIcon icon={Tick02Icon} size={14} color="#2a9" />
-                  {f}
+                  {feature}
                 </div>
               ))}
             </div>

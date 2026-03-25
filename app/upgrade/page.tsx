@@ -1,9 +1,15 @@
 "use client"
+import React, {useState} from "react"
 import Button from "@/components/button"
+import DemoBadge from "@/components/demo-badge"
+import DemoCallout from "@/components/demo-callout"
+import Link from "next/link"
 import {ArrowRight01Icon} from "@hugeicons/core-free-icons"
 import {HugeiconsIcon} from "@hugeicons/react"
 
 export default function Upgrade() {
+  const [showDemoNotice, setShowDemoNotice] = useState(false)
+
   return (
     <main
       className="min-h-screen flex items-center justify-center"
@@ -14,8 +20,10 @@ export default function Upgrade() {
       }}>
       <div className="w-full max-w-sm">
         <div className="border-2 border-black rounded-xl bg-white shadow-hard p-8">
+          <DemoBadge label="Checkout demo" className="mb-4" />
           <h1 className="text-2xl font-bold mb-1">Upgrade to Pro</h1>
-          <p className="text-sm text-[#888] mb-6">Get full access to the MiniStudio editor</p>
+          <p className="text-sm text-[#888]">Pricing preview for the MiniStudio demo</p>
+          <p className="text-xs text-[#666] mt-2 mb-6">No payment details are collected in this prototype.</p>
 
           <ul className="flex flex-col gap-2 mb-6">
             <li className="text-sm flex items-center gap-2">
@@ -32,15 +40,25 @@ export default function Upgrade() {
             </li>
           </ul>
 
-          <Button className="bg-[#2a9] w-full py-2.5 gap-2">
+          <Button className="bg-[#2a9] w-full py-2.5 gap-2" buttonProps={{type: "button", onClick: () => setShowDemoNotice(true)}}>
             <span className="text-sm font-medium">Subscribe now</span>
             <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
           </Button>
 
+          {showDemoNotice && (
+            <DemoCallout
+              className="mt-4"
+              title="This checkout is only a demo."
+              description="No subscription will be created and no card details are requested here. Use the button below to keep exploring the editor preview."
+              ctaHref="/editor"
+              ctaLabel="Keep exploring the demo"
+            />
+          )}
+
           <p className="text-xs text-[#888] mt-5 text-center">
-            <a href="/" className="text-black hover:text-[#2a9] transition-colors">
+            <Link href="/" className="text-black hover:text-[#2a9] transition-colors">
               Back to home
-            </a>
+            </Link>
           </p>
         </div>
       </div>

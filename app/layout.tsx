@@ -14,8 +14,8 @@ const clashDisplay = localfont({
   variable: "--font-clash-display",
 })
 export const metadata: Metadata = {
-  title: "MiniStudio",
-  description: "Finished videos in minutes, not hours.",
+  title: "MiniStudio Demo",
+  description: "Interactive MiniStudio demo with clearly marked preview flows for auth, checkout and export.",
 }
 
 export default function RootLayout({
