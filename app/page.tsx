@@ -31,7 +31,7 @@ const features = [
   },
 ]
 
-const checkpoints = ["Done in minutes, not hours", "Export in browser", "Only €8/mo"]
+const checkpoints = ["Done in minutes, not hours", "Export in browser", "Only EUR 8/mo"]
 
 const showcaseMedia = [
   {src: "/demo-of-mediasection.png", label: "Media library", detail: "Import clips, images and audio in one place"},
@@ -45,6 +45,24 @@ function scrollToPricing() {
   if (pricingSection) {
     pricingSection.scrollIntoView({behavior: "smooth"})
   }
+}
+
+function RevealCard({
+  children,
+  delay = 0,
+}: {
+  children: React.ReactNode
+  delay?: number
+}) {
+  return (
+    <motion.div
+      initial={{opacity: 0, y: 10}}
+      whileInView={{opacity: 1, y: 0}}
+      viewport={{once: true, amount: 0.2}}
+      transition={{duration: 0.45, ease: [0.22, 1, 0.36, 1], delay}}>
+      {children}
+    </motion.div>
+  )
 }
 
 export default function Page() {
@@ -145,36 +163,37 @@ export default function Page() {
         {/* Stats */}
         <section className=" py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <motion.div
-              className="border-2 border-black rounded-xl p-6 bg-white shadow-hard text-center cursor-pointer hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-small active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
-              initial={{opacity: 0, y: 16}}
-              whileInView={{opacity: 1, y: 0}}
-              viewport={{once: true}}
-              transition={{duration: 0.4}}>
-              <div className="size-10 rounded-lg bg-[#2a9] border-2 border-black shadow-small flex items-center justify-center mb-3 mx-auto">
-                <HugeiconsIcon icon={Time04Icon} size={18} color="white" />
+            <RevealCard>
+              <div className="border-2 border-black rounded-xl p-6 bg-white shadow-hard text-center cursor-pointer hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-small active:translate-x-1 active:translate-y-1 active:shadow-none transition-all">
+                <div className="size-10 rounded-lg bg-[#2a9] border-2 border-black shadow-small flex items-center justify-center mb-3 mx-auto">
+                  <HugeiconsIcon icon={Time04Icon} size={18} color="white" />
+                </div>
+                <div className="text-3xl font-bold">3 min</div>
+                <p className="text-[#888] text-xs mt-1">Average time to finished video</p>
               </div>
-              <div className="text-3xl font-bold">3 min</div>
-              <p className="text-[#888] text-xs mt-1">Average time to finished video</p>
-            </motion.div>
+            </RevealCard>
 
-            <motion.div className="border-2 border-black rounded-xl p-6 bg-white shadow-hard text-center cursor-pointer hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-small active:translate-x-1 active:translate-y-1 active:shadow-none transition-all" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.4, delay: 0.1}}>
-              <div className="size-10 rounded-lg bg-[#2a9] border-2 border-black shadow-small flex items-center justify-center mb-3 mx-auto">
-                <HugeiconsIcon icon={MoneyBag02Icon} size={18} color="white" />
+            <RevealCard delay={0.08}>
+              <div className="border-2 border-black rounded-xl p-6 bg-white shadow-hard text-center cursor-pointer hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-small active:translate-x-1 active:translate-y-1 active:shadow-none transition-all">
+                <div className="size-10 rounded-lg bg-[#2a9] border-2 border-black shadow-small flex items-center justify-center mb-3 mx-auto">
+                  <HugeiconsIcon icon={MoneyBag02Icon} size={18} color="white" />
+                </div>
+                <div className="text-3xl font-bold">
+                  EUR 8<span className="text-sm text-[#aaa] font-normal">/mo</span>
+                </div>
+                <p className="text-[#888] text-xs mt-1">Cheaper than any alternative</p>
               </div>
-              <div className="text-3xl font-bold">
-                €8<span className="text-sm text-[#aaa] font-normal">/mo</span>
-              </div>
-              <p className="text-[#888] text-xs mt-1">Cheaper than any alternative</p>
-            </motion.div>
+            </RevealCard>
 
-            <motion.div className="border-2 border-black rounded-xl p-6 bg-white shadow-hard text-center cursor-pointer hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-small active:translate-x-1 active:translate-y-1 active:shadow-none transition-all" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.4, delay: 0.2}}>
-              <div className="size-10 rounded-lg bg-[#2a9] border-2 border-black shadow-small flex items-center justify-center mb-3 mx-auto">
-                <HugeiconsIcon icon={SparklesIcon} size={18} color="white" />
+            <RevealCard delay={0.16}>
+              <div className="border-2 border-black rounded-xl p-6 bg-white shadow-hard text-center cursor-pointer hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-small active:translate-x-1 active:translate-y-1 active:shadow-none transition-all">
+                <div className="size-10 rounded-lg bg-[#2a9] border-2 border-black shadow-small flex items-center justify-center mb-3 mx-auto">
+                  <HugeiconsIcon icon={SparklesIcon} size={18} color="white" />
+                </div>
+                <div className="text-3xl font-bold">0</div>
+                <p className="text-[#888] text-xs mt-1">Learning curve - just drag & drop</p>
               </div>
-              <div className="text-3xl font-bold">0</div>
-              <p className="text-[#888] text-xs mt-1">Learning curve - just drag & drop</p>
-            </motion.div>
+            </RevealCard>
           </div>
         </section>
 
@@ -190,24 +209,20 @@ export default function Page() {
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {showcaseMedia.map((item, i) => (
-              <motion.div
-                key={item.label}
-                className="border-2 border-black rounded-xl overflow-hidden shadow-hard bg-white group cursor-pointer hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-small active:translate-x-1 active:translate-y-1 active:shadow-none transition-all"
-                initial={{opacity: 0, y: 16}}
-                whileInView={{opacity: 1, y: 0}}
-                viewport={{once: true}}
-                transition={{duration: 0.4, delay: i * 0.08}}>
-                <div className="relative bg-[#f3f3f3]">
-                  <Image src={item.src} alt={item.label} width={900} height={700} className="h-44 w-full object-cover object-top md:h-52" />
-                </div>
-                <div className="px-3 py-2.5">
-                  <div className="flex items-center gap-1.5">
-                    <HugeiconsIcon icon={Image01Icon} size={12} color="#aaa" />
-                    <span className="text-[11px] text-[#888]">{item.label}</span>
+              <RevealCard key={item.label} delay={i * 0.08}>
+                <div className="border-2 border-black rounded-xl overflow-hidden shadow-hard bg-white group cursor-pointer hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-small active:translate-x-1 active:translate-y-1 active:shadow-none transition-all">
+                  <div className="relative bg-[#f3f3f3]">
+                    <Image src={item.src} alt={item.label} width={900} height={700} className="h-44 w-full object-cover object-top md:h-52" />
                   </div>
-                  <p className="mt-1 text-[11px] leading-relaxed text-[#666]">{item.detail}</p>
+                  <div className="px-3 py-2.5">
+                    <div className="flex items-center gap-1.5">
+                      <HugeiconsIcon icon={Image01Icon} size={12} color="#aaa" />
+                      <span className="text-[11px] text-[#888]">{item.label}</span>
+                    </div>
+                    <p className="mt-1 text-[11px] leading-relaxed text-[#666]">{item.detail}</p>
+                  </div>
                 </div>
-              </motion.div>
+              </RevealCard>
             ))}
           </div>
         </section>
@@ -223,13 +238,15 @@ export default function Page() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {features.map((feature, i) => (
-              <motion.div key={feature.title} className="border-2 border-black rounded-xl p-6 bg-white shadow-hard cursor-pointer hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-small active:translate-x-1 active:translate-y-1 active:shadow-none transition-all" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.4, delay: i * 0.1}}>
-                <div className="size-10 rounded-lg bg-[#2a9] border-2 border-black shadow-small flex items-center justify-center mb-4">
-                  <HugeiconsIcon icon={feature.icon} size={18} color="white" />
+              <RevealCard key={feature.title} delay={i * 0.1}>
+                <div className="border-2 border-black rounded-xl p-6 bg-white shadow-hard cursor-pointer hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-small active:translate-x-1 active:translate-y-1 active:shadow-none transition-all">
+                  <div className="size-10 rounded-lg bg-[#2a9] border-2 border-black shadow-small flex items-center justify-center mb-4">
+                    <HugeiconsIcon icon={feature.icon} size={18} color="white" />
+                  </div>
+                  <h3 className="text-base font-bold mb-1.5">{feature.title}</h3>
+                  <p className="text-[#666] text-sm leading-relaxed">{feature.description}</p>
                 </div>
-                <h3 className="text-base font-bold mb-1.5">{feature.title}</h3>
-                <p className="text-[#666] text-sm leading-relaxed">{feature.description}</p>
-              </motion.div>
+              </RevealCard>
             ))}
           </div>
         </section>
@@ -243,30 +260,32 @@ export default function Page() {
             </h2>
           </div>
 
-          <motion.div className="border-2 border-[#2a9] rounded-xl p-8 bg-white shadow-hard max-w-md mx-auto relative cursor-pointer hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-small active:translate-x-1 active:translate-y-1 active:shadow-none transition-all" initial={{opacity: 0, y: 16}} whileInView={{opacity: 1, y: 0}} viewport={{once: true}} transition={{duration: 0.4}}>
-            <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#2a9] text-white text-xs font-medium px-3 py-0.5 rounded-full border-2 border-black shadow-small">All-inclusive</span>
-            <div className="text-center mb-6">
-              <h3 className="text-base font-bold mb-1">MiniStudio</h3>
-              <div className="text-5xl font-bold">
-                €8<span className="text-lg text-[#aaa] font-normal">/mo</span>
-              </div>
-              <p className="text-xs text-[#888] mt-1">Cancel anytime</p>
-            </div>
-            <div className="space-y-2.5 text-sm text-[#666]">
-              {["Simple Drag & drop editing", "Auto captions (AI)", "Animated badges & templates", "Edit videos everywhere", "All on your device"].map((feature) => (
-                <div key={feature} className="flex items-center gap-2">
-                  <HugeiconsIcon icon={Tick02Icon} size={14} color="#2a9" />
-                  {feature}
+          <RevealCard>
+            <div className="border-2 border-[#2a9] rounded-xl p-8 bg-white shadow-hard max-w-md mx-auto relative cursor-pointer hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-small active:translate-x-1 active:translate-y-1 active:shadow-none transition-all">
+              <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#2a9] text-white text-xs font-medium px-3 py-0.5 rounded-full border-2 border-black shadow-small">All-inclusive</span>
+              <div className="text-center mb-6">
+                <h3 className="text-base font-bold mb-1">MiniStudio</h3>
+                <div className="text-5xl font-bold">
+                  EUR 8<span className="text-lg text-[#aaa] font-normal">/mo</span>
                 </div>
-              ))}
+                <p className="text-xs text-[#888] mt-1">Cancel anytime</p>
+              </div>
+              <div className="space-y-2.5 text-sm text-[#666]">
+                {["Simple Drag & drop editing", "Auto captions (AI)", "Animated badges & templates", "Edit videos everywhere", "All on your device"].map((feature) => (
+                  <div key={feature} className="flex items-center gap-2">
+                    <HugeiconsIcon icon={Tick02Icon} size={14} color="#2a9" />
+                    {feature}
+                  </div>
+                ))}
+              </div>
+              <Link href="/sign-up" className="block mt-6">
+                <Button className="bg-[#2a9] px-5 py-2.5 w-full gap-2">
+                  <span className="text-sm font-medium">Get started</span>
+                  <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
+                </Button>
+              </Link>
             </div>
-            <Link href="/sign-up" className="block mt-6">
-              <Button className="bg-[#2a9] px-5 py-2.5 w-full gap-2">
-                <span className="text-sm font-medium">Get started</span>
-                <HugeiconsIcon icon={ArrowRight01Icon} size={16} />
-              </Button>
-            </Link>
-          </motion.div>
+          </RevealCard>
         </section>
 
         <footer className="text-center py-10 text-[#888] text-xs">&copy; {new Date().getFullYear()} MiniStudio. All rights reserved.</footer>
